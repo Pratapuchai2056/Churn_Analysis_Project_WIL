@@ -18,23 +18,25 @@ We want to figure out how many groups (or clusters) our data should be divided i
 By following these steps and understanding the logic behind the elbow method, we can effectively determine the optimal number of clusters for your data.
 
 # Define the range of cluster numbers to evaluate
+```
 cluster_range = range(1, 11)  # Testing from 1 to 10 clusters
 wcss = []
 for i in cluster_range:
     kmeans = KMeans(n_clusters=i, init='k-means++', max_iter=300, n_init=10, random_state=0)
     kmeans.fit(df_scaled)
     wcss.append(kmeans.inertia_)
+```
 
-# Plot the Elbow Curve
+# Plot the Elbow Curve and compute differences to identify the elbow
+```
 plt.figure(figsize=(10, 6))
 plt.plot(cluster_range, wcss, marker='o', linestyle='-', color='b', label='WCSS')
-
-# Compute differences and second differences to identify the elbow
 diffs = np.diff(wcss)
 second_diffs = np.diff(diffs)
 elbow_index = np.argmin(second_diffs) + 1  # Add 1 to align with cluster numbers
-
+```
 # Plot the elbow point
+```
 plt.plot(elbow_index, wcss[elbow_index - 1], 'ro')  # Marking the elbow point with red
 plt.title('Elbow Method For Optimal Number of Clusters')
 plt.xlabel('Number of clusters')
@@ -44,4 +46,5 @@ plt.grid(True)
 plt.legend()
 plt.show()
 print(f'The optimal number of clusters is approximately: {elbow_index}')
+```
 ![alt text](Untitled.png)
