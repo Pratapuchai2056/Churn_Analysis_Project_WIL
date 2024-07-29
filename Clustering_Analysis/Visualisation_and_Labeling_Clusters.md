@@ -38,7 +38,6 @@ for i in cluster_range:
 plt.figure(figsize=(10, 6))
 plt.plot(cluster_range, wcss, marker='o', linestyle='-', color='b', label='WCSS')
 
-# Find and mark the elbow point
 # Compute differences and second differences to identify the elbow
 diffs = np.diff(wcss)
 second_diffs = np.diff(diffs)
