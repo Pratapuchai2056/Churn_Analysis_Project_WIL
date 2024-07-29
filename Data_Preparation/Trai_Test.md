@@ -27,6 +27,93 @@ for column in df_encoded.columns:
 
 df_encoded.head()
 ```
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>gender</th>
+      <th>SeniorCitizen</th>
+      <th>Dependents</th>
+      <th>tenure</th>
+      <th>PhoneService</th>
+      <th>MultipleLines</th>
+      <th>InternetService</th>
+      <th>Contract</th>
+      <th>MonthlyCharges</th>
+      <th>Churn</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>29.85</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>34</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>56.95</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>53.85</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>45</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>42.30</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>70.70</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
 **3. Splitting the Dataset**
 
 Now, we split the dataset into training and testing sets. This allows us to train the model on one subset and evaluate it on another.
@@ -43,6 +130,12 @@ print(f'X_train shape: {X_train.shape}')
 print(f'X_test shape: {X_test.shape}')
 print(f'y_train shape: {y_train.shape}')
 print(f'y_test shape: {y_test.shape}')
+```
+```
+    X_train shape: (5634, 9)
+    X_test shape: (1409, 9)
+    y_train shape: (5634,)
+    y_test shape: (1409,)
 ```
 **4. Save the training and testing sets as CSV files**
 
