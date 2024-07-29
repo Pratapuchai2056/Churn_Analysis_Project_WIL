@@ -10,7 +10,7 @@ From sklearn.Preprocessing import Standardscaler
 Secondly, we will now follow the Standard Scaler to normalize the given facts.
 ```
 Scaler = StandardScaler()
-df_normalized = scaler.fit_transform(df_encoded)
+df_scaled = scaler.fit_transform(df_encoded)
 ```
 **3. Converting the Normalized Data Back to DataFrame:**
 Then, the third step would be to convert the normalized facts back to a Data Frame.
@@ -18,8 +18,6 @@ Then, the third step would be to convert the normalized facts back to a Data Fra
 columns = ['SeniorCitizen', 	'tenure', 	'MonthlyCharges', 	'gender_Male', 	'Dependents_Yes', 	'PhoneService_Yes', 'MultipleLines_Yes', 	'InternetService_Fiber optic', 	'Contract_One year', 	'Contract_Two year']
 df_scaled_df = pd.DataFrame(df_scaled, columns=columns)
 df_scaled_df.head()
-df_normalized = pd.DataFrame(df_normalized, columns=df_encoded.Columns)
-df_normalized.head()
 ```
 
 **4.Saving the Normalized Data:**
