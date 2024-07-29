@@ -343,7 +343,7 @@ encoder = OneHotEncoder(drop='first', sparse_output=False)
 encoded_features = encoder.fit_transform(df[['gender', 'Dependents', 'PhoneService', 'MultipleLines', 'InternetService', 'Contract']])
 df_encoded = pd.DataFrame(encoded_features, columns=encoder.get_feature_names_out())
 df_encoded = pd.concat([df[['SeniorCitizen', 'tenure', 'MonthlyCharges']], df_encoded], axis=1)
-df_encoded.head(50)
+df_encoded.head()
 ```
 <table border="1" class="dataframe">
   <thead>
