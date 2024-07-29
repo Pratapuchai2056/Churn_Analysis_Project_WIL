@@ -12,35 +12,20 @@ items and they are tenure and monthly.
 
 **2. Steps and Code**
 Step 1: Importing Libraries
+```
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
-• Purpose: It works on importing the library functions for data manipulation,
-scaling, clustering, visualization and many more features.
 
-Step 2: Load the Dataset
 df = pd.read_csv('Dataset(ATS).csv')
-• Purpose: This feature works to load the dataset containing customer data.
+```
 
 Step 3: Data Preprocessing
-df.columns = df.columns.str.lower().str.replace(' ', '_')
-• Purpose: This feature works on converting the space between every column
-name to underscores and again column names to lowercase.
-
-Step 4: Select Relevant Features
-df_segment = df[['tenure', 'monthly charges']]
-• Purpose: This another feature works on selecting the tenure and monthly
-charges to do cluster analysis.
-
-Step 5: Normalizing the given dataset.
+```
 scaler = StandardScaler()
-df_normalized = scaler.fit_transform(df_segment)
-df_normalized = pd.DataFrame(df_normalized, columns=df_segment.columns)
-• Purpose: This different feature also works on normalizing the data on a similar
-scale and thus improving the performance.
-
-Step 6: Determine the Optimal Number of Clusters Using the Elbow Method
+df_normalized = scaler.fit_transform(df)
+df_normalized = pd.DataFrame(df_normalized, columns=df.columns)
 sse = []
 for k in range(1, 11):
 kmeans = KMeans(n_clusters=k, random_state=42, n_init=10)
@@ -52,7 +37,7 @@ plt.title('Elbow Method')
 plt.xlabel('Number of clusters')
 plt.ylabel('SSE')
 plt.show()
-
+```
 Purpose: This feature works basically to plot the sum of squared errors (SSE)
 for various values of k to find the ideal number of clusters using the Elbow
 Method.
