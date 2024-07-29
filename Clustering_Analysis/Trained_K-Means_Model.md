@@ -522,17 +522,11 @@ plt.show()
 
 print(f'The optimal number of clusters is approximately: {elbow_index}')
 ```
+![output_12_0](https://github.com/user-attachments/assets/9e06f028-16a7-4e9d-a85d-78d7a112e454)
 
-
-    
-![png](output_12_0.png)
-    
-
-
-    The optimal number of clusters is approximately: 6
-    
-
-
+```
+The optimal number of clusters is approximately: 6
+```
 ```python
 from sklearn.cluster import KMeans
 import numpy as np
@@ -603,41 +597,9 @@ def plot_cluster_comparison(df_scaled, labels_6, centers_6):
 plot_cluster_comparison(df_scaled, labels_6, centers_6)
 ```
 
-
-    
-![png](output_14_0.png)
-    
-
-
+![output_14_0](https://github.com/user-attachments/assets/17ecd934-c8fd-414a-abd5-37b02d08ddb4)
 
 ```python
-from sklearn.cluster import KMeans
-
-# Fit the KMeans model for 6 clusters
-kmeans_6 = KMeans(n_clusters=6, init='k-means++', max_iter=300, n_init=10, random_state=0)
-labels_6 = kmeans_6.fit_predict(df_scaled)
-
-# Count the number of samples in each cluster for 6 clusters
-cluster_counts_6 = np.bincount(labels_6)
-print("Cluster Counts for 6 Clusters:")
-for i, count in enumerate(cluster_counts_6):
-    print(f"Cluster {i}: {count}")
-```
-
-    Cluster Counts for 6 Clusters:
-    Cluster 0: 682
-    Cluster 1: 1502
-    Cluster 2: 1200
-    Cluster 3: 1383
-    Cluster 4: 889
-    Cluster 5: 1387
-    
-
-
-```python
-import pandas as pd
-from sklearn.cluster import KMeans
-
 # Assuming df is your original DataFrame and df_scaled is your scaled dataset
 
 # Define the number of clusters (K)
@@ -804,15 +766,8 @@ df_with_labels.head()
 
 
 **3. Summary**
-Import Libraries: - It generally allows in importing all the required libraries for data
-manipulation, scaling and clustering and Visualisation.
+Elbow Method to find the best Number of clusters with ease for interpretation.
 
-Load Dataset: Load customer dataset.
+Train the K-Means model using the optimal number of clusters and visualizung the clusters with 6 different distribution.
 
-Data preprocessing: It allows to rename the desired Column names and taking relevant features Tenure & Monthly respectively.
-Normalize Data -This feature makes sure that the selected features are on a similar scale.
-
-Elbow Method - Finding the best Number of Clusters with Python coding procedure.
-
-Train Model: Train the K-Means model using the optimal number of clusters.
-Interpret Results: Shows the centres of clusters.
+Interpret the results with the centroids of clusters that can be used to model data according to the requirements of telco as different clusters represtnts different metrices.
