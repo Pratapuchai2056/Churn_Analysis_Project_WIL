@@ -15,20 +15,11 @@ We want to figure out how many groups (or clusters) our data should be divided i
 * As we increase the number of groups, the WCSS naturally decreases. This is because each data point will be closer to its assigned group center.
 * However, at some point, adding more groups doesn't significantly reduce the WCSS. This is the "elbow" in the curve.
 * Beyond the elbow, adding more groups might not provide much benefit, and it could even make the results worse.
-
-**Remember:**
-* The "elbow" point is just a guideline. Sometimes, it might be difficult to determine the exact elbow.
-* You can also use other methods like the silhouette score to help you choose the best number of clusters.
-
-By following these steps and understanding the logic behind the elbow method, you can effectively determine the optimal number of clusters for your data.
- 
-**Would you like to know more about other clustering methods or how to interpret the results?**
+By following these steps and understanding the logic behind the elbow method, we can effectively determine the optimal number of clusters for your data.
 
 # Define the range of cluster numbers to evaluate
 cluster_range = range(1, 11)  # Testing from 1 to 10 clusters
 wcss = []
-
-# Compute WCSS for different numbers of clusters
 for i in cluster_range:
     kmeans = KMeans(n_clusters=i, init='k-means++', max_iter=300, n_init=10, random_state=0)
     kmeans.fit(df_scaled)
@@ -45,7 +36,6 @@ elbow_index = np.argmin(second_diffs) + 1  # Add 1 to align with cluster numbers
 
 # Plot the elbow point
 plt.plot(elbow_index, wcss[elbow_index - 1], 'ro')  # Marking the elbow point with red
-
 plt.title('Elbow Method For Optimal Number of Clusters')
 plt.xlabel('Number of clusters')
 plt.ylabel('WCSS')
@@ -53,6 +43,5 @@ plt.xticks(cluster_range)
 plt.grid(True)
 plt.legend()
 plt.show()
-
 print(f'The optimal number of clusters is approximately: {elbow_index}')
 ![alt text](Untitled.png)
