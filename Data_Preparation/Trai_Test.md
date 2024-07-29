@@ -1,12 +1,14 @@
 # Training and Testing Sets
 
 **1. Introduction**
+
 We will start the approach via the usage of importing the essential libraries this is needed for facts manipulation and model validation.
 ```
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 ```
 **2. Encoding the records**
+
 We may be use the label encoding to transform specific variables into the numeric format.
 ```
 # Load dataset
@@ -26,6 +28,7 @@ for column in df_encoded.columns:
 df_encoded.head()
 ```
 **3. Splitting the Dataset**
+
 Now, we split the dataset into training and testing sets. This allows us to train the model on one subset and evaluate it on another.
 ```
 # Define features and target variable
@@ -42,6 +45,7 @@ print(f'y_train shape: {y_train.shape}')
 print(f'y_test shape: {y_test.shape}')
 ```
 **4. Save the training and testing sets as CSV files**
+
 Finally, we save the training and testing datasets as CSV files. This allows for easy access and sharing of the datasets.
 ```
 X_train.to_csv('X_train.csv', index=False)
@@ -50,4 +54,5 @@ y_train.to_csv('y_train.csv', index=False)
 y_test.to_csv('y_test.csv', index=False)
 ```
 **5. Conclusion**
+
 We have successfully split the dataset into training and testing sets and saved them as CSV files. This step is critical for validating the performance of machine learning models, ensuring they can generalize to unseen data.
