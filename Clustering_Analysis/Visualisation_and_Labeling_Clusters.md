@@ -47,7 +47,8 @@ plt.legend()
 plt.show()
 print(f'The optimal number of clusters is approximately: {elbow_index}')
 ```
-![alt text](Untitled.png)
+![output_13_0](https://github.com/user-attachments/assets/44fed43e-e5d4-4dcb-8e51-a5b096b81d25)
+
 ```python
 # Plot the distribution of clusters
 plt.figure(figsize=(10, 6))
