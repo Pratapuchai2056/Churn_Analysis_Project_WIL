@@ -48,3 +48,35 @@ plt.show()
 print(f'The optimal number of clusters is approximately: {elbow_index}')
 ```
 ![alt text](Untitled.png)
+```python
+# Plot the distribution of clusters
+plt.figure(figsize=(10, 6))
+sns.countplot(data=df_with_labels, x='Cluster', hue='Cluster', palette='viridis', legend=False)
+plt.title('Distribution of Clusters')
+plt.xlabel('Cluster')
+plt.ylabel('Count')
+plt.grid(True)
+plt.show()
+```
+![output_20_0](https://github.com/user-attachments/assets/de940235-07db-44d3-8885-85eb2e9da27d)
+
+
+```python
+height = 5  # Height of each facet
+aspect = 2  # Aspect ratio 
+
+# Create a pairplot with specified size
+pairplot = sns.pairplot(df_with_labels, vars=['tenure', 'MonthlyCharges'], hue='Cluster', palette='viridis', height=height, aspect=aspect)
+
+# Adjust the title position
+pairplot.fig.suptitle('Pair Plot of Tenure and Monthly Charges by Cluster', y=1.02)
+
+# Display the plot
+plt.show()
+```
+![output_21_0](https://github.com/user-attachments/assets/91006df6-0d8f-4b41-a8f4-9ae098996e63)
+
+
+```python
+
+```
