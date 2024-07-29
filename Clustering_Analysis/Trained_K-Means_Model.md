@@ -58,12 +58,12 @@ for various values of k to find the ideal number of clusters using the Elbow
 Method.
 
 Step 7: Train the K-Means Model
-optimal_clusters = 3 #Based on the elbow plot
+optimal_clusters = 6 #Based on the elbow plot
 kmeans = KMeans(n_clusters=optimal_clusters, random_state=42, n_init=10)
 df['cluster'] = kmeans.fit_predict(df_normalized)
 
 Purpose: This feature works totain the K-Means clustering model assuming
-clusters (k=3).
+clusters (k=6).
 
 Step 8: Interpret the Results
 cluster_centers = kmeans.cluster_centers_
