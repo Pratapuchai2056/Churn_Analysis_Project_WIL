@@ -1,4 +1,4 @@
-1. Introduction
+**1. Introduction**
 The popular clustering process called K-Means clustering is a machine learning
 technique. This technique generally allocates the dataset into `K` distinct clusters
 based on their similarity. This also allows to minimize the variability within each
@@ -10,7 +10,7 @@ an inconsequential telecommunications company like ours which eventually had two
 items and they are tenure and monthly.
 
 
-2. Steps and Code
+**2. Steps and Code**
 Step 1: Importing Libraries
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
@@ -88,7 +88,7 @@ Purpose: This important feature works on visualizing the clusters and their
 centres
 
 
-3. Summary
+**3. Summary**
 Import Libraries: - It generally allows in importing all the required libraries for data
 manipulation, scaling and clustering and Visualisation.
 
