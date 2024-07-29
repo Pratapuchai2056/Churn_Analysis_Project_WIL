@@ -1,7 +1,7 @@
 
 ## Preparation and preprocessing of the dataset
 
-# Introduction
+**Introduction**
 The following part mentioned below would showcase us the process that is needed for the
 preparing and preprocessing of the dataset according to our assignment.
 
@@ -15,7 +15,7 @@ import numpy as np
 ```
  **2. Loading of the Dataset:**
 Then the second step would be loading the dataset into a pandas Data Frame from a CSV file
-named 'Dataset (ATS).csv'.
+named '*Dataset (ATS).csv*'.
 ```
 # Load the dataset
 df = pd.read_csv('Dataset(ATS).csv')
@@ -234,7 +234,7 @@ df.head()
 </div>
 
 **4. Checking for the Missing Values and Standardizing the Column Names:**
-If any nuls were present is to be removed using **drop()
+If any nuls were present is to be removed using *drop()*
 ```
 df.isnull().sum()
 print(df.columns)
@@ -345,6 +345,91 @@ df_encoded = pd.DataFrame(encoded_features, columns=encoder.get_feature_names_ou
 df_encoded = pd.concat([df[['SeniorCitizen', 'tenure', 'MonthlyCharges']], df_encoded], axis=1)
 df_encoded.head(50)
 ```
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>SeniorCitizen</th>
+      <th>tenure</th>
+      <th>MonthlyCharges</th>
+      <th>gender_Male</th>
+      <th>Dependents_Yes</th>
+      <th>PhoneService_Yes</th>
+      <th>MultipleLines_Yes</th>
+      <th>InternetService_Fiber optic</th>
+      <th>Contract_One year</th>
+      <th>Contract_Two year</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>1</td>
+      <td>29.85</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0</td>
+      <td>34</td>
+      <td>56.95</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0</td>
+      <td>2</td>
+      <td>53.85</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0</td>
+      <td>45</td>
+      <td>42.30</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0</td>
+      <td>2</td>
+      <td>70.70</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
 In end, the above steps have efficiently confirmed how to load the dataset and displayed its
 structure and then checked for lacking values and have helped us to standardize the column
 names. These steps are very important for ensuring the records are easy and geared up to
