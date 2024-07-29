@@ -761,9 +761,11 @@ df_with_labels.head()
 
 
 ```python
-
+df_with_labels.to_csv('df_with_labels.csv', index=False)
 ```
-
+```
+df_with_labels.csv
+```
 
 **3. Summary**
 Elbow Method to find the best Number of clusters with ease for interpretation.
