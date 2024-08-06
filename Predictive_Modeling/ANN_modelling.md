@@ -1,6 +1,5 @@
-```python
-
 ## Predictive ANN Modelling
+```python
 
 import pandas as pd
 
@@ -56,39 +55,8 @@ df.head()
 
 ```
 
-<div>
-
-<style scoped>
-
-    .dataframe tbody tr th:only-of-type {
-
-        vertical-align: middle;
-
-    }
-
-
-    .dataframe tbody tr th {
-
-        vertical-align: top;
-
-    }
-
-
-    .dataframe thead th {
-
-        text-align: right;
-
-    }
-
-</style>
-
-<table border="1" class="dataframe">
-
-</div>
-
+# Checking the nulls if any
 ```python
-
-#Checking the nulls if any
 
 missing_testues = df.isnull().sum()
 
@@ -126,9 +94,9 @@ df_cleaned = df.copy()
 
 ```
 
-```python
-
 # Convert Categorical Features to Numeric
+
+```python
 
 categorical_cols = ['gender', 'Dependents', 'PhoneService', 'MultipleLines', 'InternetService', 'Contract', 'Churn']
 
@@ -142,45 +110,9 @@ df_encoded = pd.concat([df_cleaned.drop(columns=categorical_cols), encoded_df], 
 
 ```
 
-```python
-
-df_encoded.head()
-
-```
-
-<div>
-
-<style scoped>
-
-    .dataframe tbody tr th:only-of-type {
-
-        vertical-align: middle;
-
-    }
-
-
-    .dataframe tbody tr th {
-
-        vertical-align: top;
-
-    }
-
-
-    .dataframe thead th {
-
-        text-align: right;
-
-    }
-
-</style>
-
-<table border="1" class="dataframe">
-
-</div>
-
-```python
-
 # Scaling Numerical Features
+
+```python
 
 numerical_cols = ['tenure', 'MonthlyCharges']
 
@@ -202,48 +134,18 @@ df_scaled.head()
 
 ```
 
-<div>
-
-<style scoped>
-
-    .dataframe tbody tr th:only-of-type {
-
-        vertical-align: middle;
-
-    }
-
-
-    .dataframe tbody tr th {
-
-        vertical-align: top;
-
-    }
-
-
-    .dataframe thead th {
-
-        text-align: right;
-
-    }
-
-</style>
-
-<table border="1" class="dataframe">
-
-</div>
-
-```python
-
 # Split Data into Training and Testing Sets
+```python
 
 X = df_scaled.drop(columns=['Churn_No', 'Churn_Yes'])
 
 y = df_scaled['Churn_Yes']
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+```
 
 # Display the shapes of the training and testing sets
-
+```python
 print(f'X_train shape: {X_train.shape}')
 
 print(f'X_test shape: {X_test.shape}')
@@ -264,25 +166,21 @@ print(f'y_test shape: {y_test.shape}')
 
 ```python
 
-print(y_train.unique())  # Should print [0, 1]
+print(y_train.unique())
 
-print(y_train.dtypes)    # Should be int64
+print(y_train.dtypes)   
 
 ```
-
     [0. 1.]
 
     float64
 
-```python
-
 # Convert classes to numpy array
-
+```
 classes = np.array([0, 1])
-
-
+```
 # Compute class weights
-
+```
 class_weights = compute_class_weight(class_weight='balanced', classes=classes, y=y_train)
 
 class_weights_dict = dict(enumerate(class_weights))
@@ -291,13 +189,13 @@ class_weights_dict = dict(enumerate(class_weights))
 print("Calculated Class Weights:", class_weights_dict)
 
 ```
-
-    Calculated Class Weights: {0: 0.680763653939101, 1: 1.8830213903743316}
-
-```python
+```
+Calculated Class Weights: {0: 0.680763653939101, 1: 1.8830213903743316}
+```
 
 # Define a simple Sequential model
 
+```
 model = Sequential([
 
     Input(shape=(X_train.shape[1],)),  # Ensure input shape matches X_train
@@ -307,15 +205,15 @@ model = Sequential([
     Dense(1, activation='sigmoid')  # Output layer for binary classification
 
 ])
-
+```
 
 # Compile the model
-
+```
 model.compile(optimizer=Adam(), loss='binary_crossentropy', metrics=['accuracy'])
-
+```
 
 # Train the model without class weights
-
+```
 history = model.fit(X_train, y_train, 
 
                     epochs=20, 
@@ -325,7 +223,7 @@ history = model.fit(X_train, y_train,
                     validation_split=0.2)  # Split training data for validation
 
 ```
-
+```
     Epoch 1/20
 
     [1m141/141[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m2s[0m 4ms/step - accuracy: 0.7094 - loss: 0.5616 - val_accuracy: 0.7924 - val_loss: 0.4271
@@ -405,19 +303,16 @@ history = model.fit(X_train, y_train,
     Epoch 20/20
 
     [1m141/141[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 2ms/step - accuracy: 0.7999 - loss: 0.4229 - val_accuracy: 0.7977 - val_loss: 0.4079
+```
 
-```python
 
-# Evaluate on the training set
-
+# Evaluate on the training set and  validation set
+```
 train_loss, train_accuracy = model.evaluate(X_train, y_train, verbose=0)
 
 print(f"Training Accuracy: {train_accuracy:.4f}")
 
 print(f"Training Loss: {train_loss:.4f}")
-
-
-# Evaluate on the validation set
 
 test_loss, test_accuracy = model.evaluate(X_test, y_test, verbose=0)
 
@@ -426,7 +321,7 @@ print(f"validation Accuracy: {test_accuracy:.4f}")
 print(f"validation Loss: {test_loss:.4f}")
 
 ```
-
+```
     Training Accuracy: 0.7973
 
     Training Loss: 0.4192
@@ -435,10 +330,11 @@ print(f"validation Loss: {test_loss:.4f}")
 
     validation Loss: 0.4057
 
-```python
+```
 
-# Plot training & validation accuracy testues
+# Plot training & validation accuracy values
 
+```
 plt.plot(history.history['accuracy'])
 
 plt.plot(history.history['val_accuracy'])
@@ -452,7 +348,10 @@ plt.ylabel('Accuracy')
 plt.legend(['Train', 'validation'], loc='upper left')
 
 plt.show()
+```
+```
 
+```
 
 # Plot training & testidation loss testues
 
