@@ -18,7 +18,13 @@ We want to figure out how many groups (or clusters) our data should be divided i
 By following these steps and understanding the logic behind the elbow method, we can effectively determine the optimal number of clusters for your data.
 
 # Define the range of cluster numbers to evaluate
-```
+```python
+import pandas as pd
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.preprocessing import LabelEncoder
+import matplotlib.pyplot as plt
+import seaborn as sns
+
 cluster_range = range(1, 11)  # Testing from 1 to 10 clusters
 wcss = []
 for i in cluster_range:
@@ -28,7 +34,7 @@ for i in cluster_range:
 ```
 
 # Plot the Elbow Curve and compute differences to identify the elbow
-```
+```python
 plt.figure(figsize=(10, 6))
 plt.plot(cluster_range, wcss, marker='o', linestyle='-', color='b', label='WCSS')
 diffs = np.diff(wcss)
@@ -36,7 +42,7 @@ second_diffs = np.diff(diffs)
 elbow_index = np.argmin(second_diffs) + 1  # Add 1 to align with cluster numbers
 ```
 # Plot the elbow point
-```
+```python
 plt.plot(elbow_index, wcss[elbow_index - 1], 'ro')  # Marking the elbow point with red
 plt.title('Elbow Method For Optimal Number of Clusters')
 plt.xlabel('Number of clusters')
@@ -77,7 +83,6 @@ plt.show()
 
 # Numeric columns distrubition by cluster labels
 ```python
-import pandas as pd
 numeric_columns = df_with_labels.select_dtypes(include=['number']).drop("SeniorCitizen", axis=1)
 # Group by cluster and calculate the mean of each numeric feature
 cluster_centers = df_with_labels.groupby('Cluster')[numeric_columns.columns].mean()
@@ -96,8 +101,6 @@ print(cluster_centers)
 
 **Distribution of MonthlyCharges by Cluster**
 ```python
-import seaborn as sns
-import matplotlib.pyplot as plt
 sns.boxplot(x='Cluster', y='MonthlyCharges', data=df_with_labels)
 plt.title('Distribution of MonthlyCharges by Cluster')
 plt.show()
@@ -112,14 +115,13 @@ plt.show()
 ```
 ![output_23_1](https://github.com/user-attachments/assets/8ed795a0-b3f1-4798-a398-340b2961fbaa)
 
-    
+# ANN Model visualization on feature of apprpopriate clusters
 ```python
-import pandas as pd
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.preprocessing import LabelEncoder
-import matplotlib.pyplot as plt
-import seaborn as sns
 
+```
+
+# OTHER MODELS AND WHATIF
+```python
 # Assuming df_with_labels is your DataFrame with 'Cluster' and 'Churn'
 df_cluster_0 = df_with_labels[df_with_labels['Cluster'] == 0]
 df_cluster_1 = df_with_labels[df_with_labels['Cluster'] == 1]
@@ -163,8 +165,10 @@ importances_df_1 = pd.DataFrame({'Feature': features, 'Importance_Cluster_1': im
 # Merge dataframes for comparison
 importances_df = pd.merge(importances_df_0, importances_df_1, on='Feature')
 importances_df = importances_df.sort_values(by='Importance_Cluster_0', ascending=False)
+```
 
-# Plot feature importances for Cluster 0
+**Plot feature importances for Cluster 0**
+```python
 plt.figure(figsize=(14, 7))
 sns.barplot(data=importances_df, x='Importance_Cluster_0', y='Feature', color='blue', orient='h', alpha=0.7)
 plt.title('Feature Importances for Cluster 0')
@@ -173,8 +177,12 @@ plt.ylabel('Feature')
 for index, value in enumerate(importances_df['Importance_Cluster_0']):
     plt.text(value, index, f'{value:.2f}')
 plt.show()
+```
+![output_24_0](https://github.com/user-attachments/assets/9106d615-36d6-4557-aaf1-1de26f2309a9)
 
-# Plot feature importances for Cluster 1
+
+**Plot feature importances for Cluster 1**
+```python
 plt.figure(figsize=(14, 7))
 sns.barplot(data=importances_df, x='Importance_Cluster_1', y='Feature', color='green', orient='h', alpha=0.7)
 plt.title('Feature Importances for Cluster 1')
@@ -184,19 +192,7 @@ for index, value in enumerate(importances_df['Importance_Cluster_1']):
     plt.text(value, index, f'{value:.2f}')
 plt.show()
 ```
-
-
-    
-![png](output_24_0.png)
-    
-
-
-
-    
-![png](output_24_1.png)
-    
-
-
+![output_24_1](https://github.com/user-attachments/assets/1b744142-eeef-459c-bfcf-b98ce06ea7da)
 
 ```python
 
