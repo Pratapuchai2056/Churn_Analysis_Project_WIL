@@ -1,4 +1,4 @@
-## Finding the Best Number of Clusters: Elbow Method
+# Finding the Best Number of Clusters: Elbow Method
 
 **Understanding the Problem:**
 We want to figure out how many groups (or clusters) our data should be divided into. A popular method for this is called the "elbow method."
