@@ -16,11 +16,12 @@
 # CM: Confusion Matrix
 
  ***(Row labels: Actual class; Column labels: Predicted class)***
- ```python
+
+```python
           	No   	Yes   	Error         	Rate
-    No 	  2092   	702  	  0.2513  	702 / 2,794
+    No 	  	2092   	702  	  0.2513  	702 / 2,794
    Yes   	218   	791  	  0.2161  	218 / 1,009
-Totals  	2310  	1493  	0.2419  	920 / 3,803
+Totals  	2310  	1493  	  0.2419  	920 / 3,803
 ```
 
 # Gains/Lift Table (Avg response rate: 26.53 %, avg score: 25.81 %):
@@ -50,14 +51,14 @@ Totals  	2310  	1493  	0.2419  	920 / 3,803
 
 ```python
  Layer Units      Type Dropout       L1       L2 Mean Rate Rate RMS Momentum Mean Weight Weight RMS Mean Bias Bias RMS
-     1    19     Input  0.00 %                                                                              
+     1    19     Input  0.00 %                                                                            
      2    50 Rectifier       0 0.000010 0.000000  0.426701 0.485334 0.000000   -0.023149   0.167493  0.302173 0.109979
      3    50 Rectifier       0 0.000010 0.000000  0.107587 0.217004 0.000000   -0.023679   0.139769  0.865654 0.134420
      4     2   Softmax         0.000010 0.000000  0.003714 0.003894 0.000000    0.042484   0.407008  0.000000 0.021001
 ```
 
-
 **Scoring History**
+
 ```python
            Timestamp   Duration Training Speed   Epochs Iterations      Samples Training RMSE Training LogLoss Training r2 Training AUC Training pr_auc Training Lift Training Classification Error
  2024-08-13 21:32:24  0.000 sec                 0.00000          0     0.000000           NaN              NaN         NaN          NaN             NaN           NaN                           NaN
