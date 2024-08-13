@@ -16,10 +16,10 @@
 # CM: Confusion Matrix
 
  ***(Row labels: Actual class; Column labels: Predicted class)***
-          No   Yes   Error         Rate
-    No  2092   702  0.2513  702 / 2,794
-   Yes   218   791  0.2161  218 / 1,009
-Totals  2310  1493  0.2419  920 / 3,803
+          	No   	Yes   	Error         	Rate
+    No 	2092   	702  	0.2513  	702 / 2,794
+   Yes   	218   	791  	0.2161  	218 / 1,009
+Totals  	2310  	1493  	0.2419  	920 / 3,803
 
 # Gains/Lift Table (Avg response rate: 26.53 %, avg score: 25.81 %):
 
@@ -48,14 +48,15 @@ Totals  2310  1493  0.2419  920 / 3,803
 
 ```python
  Layer Units      Type Dropout       L1       L2 Mean Rate Rate RMS Momentum Mean Weight Weight RMS Mean Bias Bias RMS
-     1    19     Input  0.00 %                                                                                
+     1    19     Input  0.00 %                                                                              
      2    50 Rectifier       0 0.000010 0.000000  0.426701 0.485334 0.000000   -0.023149   0.167493  0.302173 0.109979
      3    50 Rectifier       0 0.000010 0.000000  0.107587 0.217004 0.000000   -0.023679   0.139769  0.865654 0.134420
      4     2   Softmax         0.000010 0.000000  0.003714 0.003894 0.000000    0.042484   0.407008  0.000000 0.021001
 ```
 
+
+**Scoring History**
 ```python
-Scoring History:
            Timestamp   Duration Training Speed   Epochs Iterations      Samples Training RMSE Training LogLoss Training r2 Training AUC Training pr_auc Training Lift Training Classification Error
  2024-08-13 21:32:24  0.000 sec                 0.00000          0     0.000000           NaN              NaN         NaN          NaN             NaN           NaN                           NaN
  2024-08-13 21:32:24  0.476 sec  11524 obs/sec  1.00000          1  3803.000000       0.39049          0.46023     0.21773      0.82580         0.60939       2.70600                       0.25979
@@ -71,31 +72,3 @@ Scoring History:
 ```
 
 H2O version: 3.30.0.1-rm9.8.1
-
-# Performances
-
-```python
-Criterion               	Value               	Standard Deviation
-Accuracy		        0.7923607767613545	0.02148193519709103
-Classification_error		0.20763922323864553	0.021481935197089817
-AUC			        0.8314282009313267	0.023039517568668545
-Precision		        0.7320460491889064	0.03092419337795061
-Recall			        0.3798705966930266	0.062281138235821924
-F_measure		        0.49809343740265133	0.058176392978831495
-Sensitivity		        0.3798705966930266	0.062281138235821924
-Specificity		        0.9480709724452469	0.00794791971729738
-```
-
-# Confusion Matrix
-
-```python
-	        true No	true Yes	class precision
-pred. No	1387	342	        80.22%
-pred. Yes	76	208	        73.24%
-class recall	94.81%	37.82%
-```
-
-# Deep Learning-Lift Chart
-```
-
-```
