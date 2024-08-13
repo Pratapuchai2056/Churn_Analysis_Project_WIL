@@ -75,3 +75,5 @@ Totals  	2310  	1493  	  0.2419  	920 / 3,803
 ```
 
 H2O version: 3.30.0.1-rm9.8.1
+# ROC Comparision
+![Screenshot 2024-08-13 235431](https://github.com/user-attachments/assets/01860636-cba6-4809-9c65-e558d315e1f5)
