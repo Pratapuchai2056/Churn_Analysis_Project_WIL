@@ -1,16 +1,16 @@
 # Deep Learning Model
 
-***Model Metrics Type: Binomial***
- **Description: Metrics reported on full training frame**
- model id: rm-h2o-model-model-81
- frame id: rm-h2o-frame-model-81
- **MSE**: 0.1380193
- **RMSE**: 0.3715095
- **R^2**: 0.29193214
- **AUC**: 0.839229
- **pr_auc**: 0.6407102
- **logloss**: 0.4234694
- **mean_per_class_error**: 0.2336541
+***Model Metrics Type: Binomial***<br/>
+**Description: Metrics reported on full training frame**<br/>
+ model id: rm-h2o-model-model-81<br/>
+ frame id: rm-h2o-frame-model-81<br/>
+ **MSE**: 0.1380193<br/>
+ **RMSE**: 0.3715095<br/>
+ **R^2**: 0.29193214<br/>
+ **AUC**: 0.839229<br/>
+ **pr_auc**: 0.6407102<br/>
+ **logloss**: 0.4234694<br/>
+ **mean_per_class_error**: 0.2336541<br/>
  **default threshold**: 0.29389920830726624
 
 # CM: Confusion Matrix

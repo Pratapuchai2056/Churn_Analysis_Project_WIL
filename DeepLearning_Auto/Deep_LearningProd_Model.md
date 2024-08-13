@@ -1,21 +1,22 @@
 # Deep Learning Model
 
-***Model Metrics Type: Binomial***
- **Description: Metrics reported on full training frame**
- model id: rm-h2o-model-production_model-84
- frame id: rm-h2o-frame-production_model-84
- **MSE**: 0.13836128
- **RMSE**: 0.37196946
- **R^2**: 0.2902199
- **AUC**: 0.8416958
- **pr_auc**: 0.6486529
- **logloss**: 0.42375964
- **mean_per_class_error**: 0.24456012
+***Model Metrics Type: Binomial***<br/>
+**Description: Metrics reported on full training frame**<br/>
+ model id: rm-h2o-model-production_model-84<br/>
+ frame id: rm-h2o-frame-production_model-84<br/>
+ **MSE**: 0.13836128<br/>
+ **RMSE**: 0.37196946<br/>
+ **R^2**: 0.2902199<br/>
+ **AUC**: 0.8416958<br/>
+ **pr_auc**: 0.6486529<br/>
+ **logloss**: 0.42375964<br/>
+ **mean_per_class_error**: 0.24456012<br/>
  **default threshold**: 0.2931421101093292
 
 # CM: Confusion Matrix
 
  ***(Row labels: Actual class; Column labels: Predicted class)***
+
 ```python
           	No   	Yes   	Error           Rate
     No  	3722   	935  	0.2008    	935 / 4,657
@@ -45,9 +46,9 @@ Totals  	4207  	2132  	0.2240  	1,420 / 6,339
      16                1.00000000         0.002036  0.035666         1.000000       0.009464  0.005165                  0.265342          0.233855      0.003567                 1.000000  -96.433381         0.000000
 ```
 
-**Status of Neuron Layers** 
+**Status of Neuron Layers**
 ***(predicting Churn, 2-class classification, bernoulli distribution, CrossEntropy loss, 3,652 weights/biases, 47.8 KB, 63,390 training samples, mini-batch size 1)***
- 
+
 ```python
  Layer Units      Type Dropout       L1       L2 Mean Rate Rate RMS Momentum Mean Weight Weight RMS Mean Bias Bias RMS
     1    19     Input  0.00 %
@@ -57,6 +58,7 @@ Totals  	4207  	2132  	0.2240  	1,420 / 6,339
 ```
 
 **Scoring History**
+
 ```python
            Timestamp   Duration Training Speed   Epochs Iterations      Samples Training RMSE Training LogLoss Training r2 Training AUC Training pr_auc Training Lift Training Classification Error
  2024-08-13 21:32:51  0.000 sec                 0.00000          0     0.000000           NaN              NaN         NaN          NaN             NaN           NaN                           NaN
@@ -71,6 +73,7 @@ Totals  	4207  	2132  	0.2240  	1,420 / 6,339
  2024-08-13 21:32:53  1.806 sec  36783 obs/sec  9.00000          9 57051.000000       0.37301          0.42558     0.28623      0.84241         0.64876       3.29764                       0.23805
  2024-08-13 21:32:53  1.962 sec  37958 obs/sec 10.00000         10 63390.000000       0.37197          0.42376     0.29022      0.84170         0.64865       3.29764                       0.22401
 ```
+
 H2O version: 3.30.0.1-rm9.8.1
 
 # Performances
