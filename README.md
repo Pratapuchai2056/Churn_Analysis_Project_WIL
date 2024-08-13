@@ -1,5 +1,5 @@
 # Churn_Analysis_WIL
-Churn analysis for telecom 
-***Feel free to comment if any improvements can be made or issues are found***
-**Comments without valid reason or unnecessary comments will be discarded**
+Churn analysis for telecom <br/>
+
+***Feel free to comment if any improvements can be made or issues are found. But, Comments without valid reasoning or inappropriate comments will be discarded***
 
