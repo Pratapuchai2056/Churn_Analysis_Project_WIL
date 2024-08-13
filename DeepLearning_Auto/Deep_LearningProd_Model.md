@@ -16,10 +16,12 @@
 # CM: Confusion Matrix
 
  ***(Row labels: Actual class; Column labels: Predicted class)***
+```python
           	No   	Yes   	Error           Rate
     No  	3722   	935  	0.2008    	935 / 4,657
    Yes   	485  	1197  	0.2883    	485 / 1,682
 Totals  	4207  	2132  	0.2240  	1,420 / 6,339
+```
 
 # Gains/Lift Table (Avg response rate: 26.53 %, avg score: 23.39 %):
 
