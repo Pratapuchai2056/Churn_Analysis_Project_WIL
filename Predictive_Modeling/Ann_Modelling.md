@@ -1,5 +1,5 @@
-```python
 ## Predictive ANN Modelling
+```python
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -20,6 +20,8 @@ from imblearn.pipeline import Pipeline
 from sklearn.metrics import precision_recall_curve
 from sklearn.metrics import average_precision_score
 from sklearn.metrics import roc_auc_score, roc_curve
+from sklearn.metrics import accuracy_score
+from sklearn.ensemble import RandomForestClassifier
 ```
 
 
@@ -31,24 +33,6 @@ df = pd.read_csv('Dataset(ATS).csv')
 ```python
 df.head()
 ```
-
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -137,9 +121,8 @@ df.head()
 
 
 
-
+**Checking the nulls if any**
 ```python
-#Checking the nulls if any
 missing_testues = df.isnull().sum()
 print("Missing values per column:\n", missing_testues)
 ```
@@ -163,9 +146,8 @@ print("Missing values per column:\n", missing_testues)
 df_cleaned = df.copy()
 ```
 
-
+**Convert Categorical Features to Numeric**
 ```python
-# Convert Categorical Features to Numeric
 categorical_cols = ['gender', 'Dependents', 'PhoneService', 'MultipleLines', 'InternetService', 'Contract', 'Churn']
 encoder = OneHotEncoder(sparse_output=False)
 encoded_data = encoder.fit_transform(df_cleaned[categorical_cols])
@@ -178,23 +160,6 @@ df_encoded = pd.concat([df_cleaned.drop(columns=categorical_cols), encoded_df], 
 df_encoded.head()
 ```
 
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -331,9 +296,8 @@ df_encoded.head()
 
 
 
-
+**Scaling Numerical Features**
 ```python
-# Scaling Numerical Features
 numerical_cols = ['tenure', 'MonthlyCharges']
 scaler = StandardScaler()
 scaled_data = scaler.fit_transform(df_encoded[numerical_cols])
@@ -347,23 +311,6 @@ df_scaled[numerical_cols] = scaled_df
 df_scaled.head()
 ```
 
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -500,13 +447,12 @@ df_scaled.head()
 
 
 
-
+**Split Data into Training and Testing Sets and Display the shapes of the training and testing sets**
 ```python
-# Split Data into Training and Testing Sets
 X = df_scaled.drop(columns=['Churn_No', 'Churn_Yes'])
 y = df_scaled['Churn_Yes']
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-# Display the shapes of the training and testing sets
+
 print(f'X_train shape: {X_train.shape}')
 print(f'X_test shape: {X_test.shape}')
 print(f'y_train shape: {y_train.shape}')
@@ -521,20 +467,18 @@ print(f'y_test shape: {y_test.shape}')
 
 
 ```python
-print(y_train.unique())  # Should print [0, 1]
-print(y_train.dtypes)    # Should be int64
+print(y_train.unique()) 
+print(y_train.dtypes)    
 ```
 
     [0. 1.]
     float64
     
 
-
+**Convert classes to numpy array and Compute class weights**
 ```python
-# Convert classes to numpy array
 classes = np.array([0, 1])
 
-# Compute class weights
 class_weights = compute_class_weight(class_weight='balanced', classes=classes, y=y_train)
 class_weights_dict = dict(enumerate(class_weights))
 
@@ -544,23 +488,20 @@ print("Calculated Class Weights:", class_weights_dict)
     Calculated Class Weights: {0: 0.680763653939101, 1: 1.8830213903743316}
     
 
-
+**Define a simple Sequential ANN model, Compile the model using optimisers and training the model with splits**
 ```python
-# Define a simple Sequential model
 model = Sequential([
     Input(shape=(X_train.shape[1],)),  # Ensure input shape matches X_train
     Dense(64, activation='relu'),
     Dense(1, activation='sigmoid')  # Output layer for binary classification
 ])
 
-# Compile the model
 model.compile(optimizer=Adam(), loss='binary_crossentropy', metrics=['accuracy'])
 
-# Train the model without class weights
 history = model.fit(X_train, y_train, 
                     epochs=20, 
                     batch_size=32, 
-                    validation_split=0.2)  # Split training data for validation
+                    validation_split=0.2)  
 ```
 
     Epoch 1/20
@@ -605,14 +546,12 @@ history = model.fit(X_train, y_train,
     [1m141/141[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 2ms/step - accuracy: 0.7999 - loss: 0.4229 - val_accuracy: 0.7977 - val_loss: 0.4079
     
 
-
+**Evaluate on the training set and validation set**
 ```python
-# Evaluate on the training set
 train_loss, train_accuracy = model.evaluate(X_train, y_train, verbose=0)
 print(f"Training Accuracy: {train_accuracy:.4f}")
 print(f"Training Loss: {train_loss:.4f}")
 
-# Evaluate on the validation set
 test_loss, test_accuracy = model.evaluate(X_test, y_test, verbose=0)
 print(f"validation Accuracy: {test_accuracy:.4f}")
 print(f"validation Loss: {test_loss:.4f}")
@@ -624,9 +563,8 @@ print(f"validation Loss: {test_loss:.4f}")
     validation Loss: 0.4057
     
 
-
+**Plot training & validation accuracy values**
 ```python
-# Plot training & validation accuracy testues
 plt.plot(history.history['accuracy'])
 plt.plot(history.history['val_accuracy'])
 plt.title('Model accuracy')
@@ -634,8 +572,11 @@ plt.xlabel('Epoch')
 plt.ylabel('Accuracy')
 plt.legend(['Train', 'validation'], loc='upper left')
 plt.show()
+```
+![output_14_0](https://github.com/user-attachments/assets/e1858f80-c27c-4473-9cfd-304267e18a0e)
 
-# Plot training & testidation loss testues
+**Plot training & testidation loss values**
+```python
 plt.plot(history.history['loss'])
 plt.plot(history.history['val_loss'])
 plt.title('Model loss')
@@ -644,54 +585,38 @@ plt.ylabel('Loss')
 plt.legend(['Train', 'validation'], loc='upper left')
 plt.show()
 ```
+![output_14_1](https://github.com/user-attachments/assets/88870f48-7585-4c6d-91de-e7d0c9e99dd2)
 
-
-    
-![png](output_14_0.png)
-    
-
-
-
-    
-![png](output_14_1.png)
-    
-
-
-
+**Convert y_test to NumPy array and predict on the validation set**
 ```python
-# Convert y_test to NumPy array
 y_test_array = np.array(y_test)
-
-# Predict on the validation set
 y_test_pred = (model.predict(X_test) > 0.5).astype("int32")
-
-# Flatten the predictions and true labels
+```
+**Flatten the predictions and true labels**
+```python
 y_test_true = y_test_array.flatten()
 y_test_pred = y_test_pred.flatten()
-
+```
 
 # Confusion Matrix
+```python
 cm = confusion_matrix(y_test_true, y_test_pred)
 sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=['No Churn', 'Churn'], yticklabels=['No Churn', 'Churn'])
 plt.xlabel('Predicted')
 plt.ylabel('True')
 plt.title('Confusion Matrix')
 plt.show()
+```
+![output_15_1](https://github.com/user-attachments/assets/7b6105c8-a158-4a44-8002-b07281c3603d)
 
 # Classification Report
+```python
 report = classification_report(y_test_true, y_test_pred, target_names=['No Churn', 'Churn'])
 print("Classification Report:")
 print(report)
 ```
 
-    [1m45/45[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 2ms/step
-    
-
-
-    
-![png](output_15_1.png)
-    
-
+[1m45/45[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 2ms/step
 
     Classification Report:
                   precision    recall  f1-score   support
@@ -705,40 +630,45 @@ print(report)
     
     
 
-
-```python
 # Saving the model
-# model.save('model_trained_on_original_data.keras')
+```python
+model.save('model_trained_on_original_data.keras')
 ```
 
-
+# Clone the model architecture for Cross validation and Tuning on resampled data
 ```python
-# Clone the model architecture
 model_copy = clone_model(model)
-
+```
 # Set the weights of the cloned model
+```python
 model_copy.set_weights(model.get_weights())
-
+```
 # Compile the cloned model
+```python
 model_copy.compile(optimizer=Adam(), loss='binary_crossentropy', metrics=['accuracy'])
-
+```
 # Define the resampling strategy
+```python
 smote = SMOTE(sampling_strategy='minority')
 undersample = RandomUnderSampler(sampling_strategy='majority')
-
+```
 # Create a pipeline that first applies SMOTE, then undersampling
+```python
 resampling_pipeline = Pipeline([
     ('smote', smote),
     ('undersample', undersample)
 ])
-
+```
 # Fit and transform the training data
+```
 X_resampled, y_resampled = resampling_pipeline.fit_resample(X_train, y_train)
-
+```
 # Train the cloned model with resampled data
+```
 history_resampled = model_copy.fit(X_resampled, y_resampled, epochs=20, batch_size=32, validation_split=0.2)
-
+```
 # Evaluate the cloned model
+```
 y_test_pred_proba = model_copy.predict(X_test).flatten()
 ```
 
@@ -785,13 +715,15 @@ y_test_pred_proba = model_copy.predict(X_test).flatten()
     [1m45/45[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 2ms/step
     
 
-
-```python
 # Compute ROC-AUC
+```python
 roc_auc = roc_auc_score(y_test, y_test_pred_proba)
 print(f"ROC-AUC (Resampled Data): {roc_auc:.4f}")
+```
+ROC-AUC (Resampled Data): 0.8540
 
 # Plot ROC Curve and Precision-Recall Curve
+```python
 fpr, tpr, _ = roc_curve(y_test, y_test_pred_proba)
 plt.figure()
 plt.plot(fpr, tpr, marker='.')
@@ -800,19 +732,11 @@ plt.ylabel('True Positive Rate')
 plt.title('ROC Curve (Resampled Data)')
 plt.show()
 ```
-
-    ROC-AUC (Resampled Data): 0.8540
-    
+![output_18_1](https://github.com/user-attachments/assets/37e5731f-1a31-4080-a15f-2f6abe53e954)
 
 
-    
-![png](output_18_1.png)
-    
-
-
-
+**Compute Precision-Recall curve**
 ```python
-# Compute Precision-Recall curve
 precision, recall, _ = precision_recall_curve(y_test, y_test_pred_proba)
 average_precision = average_precision_score(y_test, y_test_pred_proba)
 print(f"Average Precision (Resampled Data): {average_precision:.4f}")
@@ -825,21 +749,18 @@ plt.title('Precision-Recall Curve (Resampled Data)')
 plt.show()
 ```
 
-    Average Precision (Resampled Data): 0.6703
+Average Precision (Resampled Data): 0.6703
     
+![output_19_1](https://github.com/user-attachments/assets/7f9a2390-99a0-4333-8cf9-5d4308af34de)
 
 
-    
-![png](output_19_1.png)
-    
-
-
-
+**Predict on the test set using the cloned model**
 ```python
-# Predict on the test set using the cloned model
 y_test_pred_resampled = (model_copy.predict(X_test) > 0.5).astype("int32").flatten()
+```
 
 # Compute and plot the Confusion Matrix
+```python
 cm_resampled = confusion_matrix(y_test, y_test_pred_resampled)
 plt.figure(figsize=(8, 6))
 sns.heatmap(cm_resampled, annot=True, fmt='d', cmap='Blues', xticklabels=['No Churn', 'Churn'], yticklabels=['No Churn', 'Churn'])
@@ -847,20 +768,17 @@ plt.xlabel('Predicted')
 plt.ylabel('True')
 plt.title('Confusion Matrix (Resampled Data)')
 plt.show()
+```
+![output_20_1](https://github.com/user-attachments/assets/2b2f8764-2b0d-468a-af26-56a824850fe5)
 
 # Generate and print the Classification Report
+```python
 report_resampled = classification_report(y_test, y_test_pred_resampled, target_names=['No Churn', 'Churn'])
 print("Classification Report (Resampled Data):")
 print(report_resampled)
 ```
 
-    [1m45/45[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 1ms/step 
-    
-
-
-    
-![png](output_20_1.png)
-    
+[1m45/45[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 1ms/step 
 
 
     Classification Report (Resampled Data):
@@ -876,31 +794,27 @@ print(report_resampled)
     
 
 
+# Save the cloned model
 ```python
-# # Save the cloned model
-# model_copy.save('model_trained_on_resampled_data.keras')
+model_copy.save('model_trained_on_resampled_data.keras')
 ```
 
-
+# Interpreting the importance using shuffling permutuation
 ```python
-import pandas as pd
-import numpy as np
-from sklearn.metrics import accuracy_score
-
 def permutation_importance(model, X, y, metric, n_repeats=10):
-    """
-    Compute permutation importance for features.
+    
+    ## Compute permutation importance for features.
+    
+    #Parameters:
+    #- model: Trained model
+    #- X: Feature data
+    #- y: Target data
+    #- metric: Function to compute the metric (e.g., accuracy_score)
+    #- n_repeats: Number of repetitions for shuffling
 
-    Parameters:
-    - model: Trained model
-    - X: Feature data
-    - y: Target data
-    - metric: Function to compute the metric (e.g., accuracy_score)
-    - n_repeats: Number of repetitions for shuffling
+    # Returns:
+    # - importances: Dictionary of feature importances
 
-    Returns:
-    - importances: Dictionary of feature importances
-    """
     # Ensure predictions are class labels
     y_pred = (model.predict(X) > 0.5).astype(int).flatten()
     baseline_score = metric(y, y_pred)
@@ -1110,12 +1024,8 @@ print(importance_df)
     0                 SeniorCitizen    0.001065
     
 
-
+**Plot permutation importances**
 ```python
-import matplotlib.pyplot as plt
-import seaborn as sns
-
-# Plot permutation importances
 plt.figure(figsize=(12, 8))
 sns.barplot(x='Importance', y='Feature', data=importance_df, palette='viridis')
 plt.title('Permutation Feature Importance')
@@ -1123,22 +1033,11 @@ plt.xlabel('Importance')
 plt.ylabel('Feature')
 plt.show()
 ```
-
+![output_23_0](https://github.com/user-attachments/assets/86b86257-afad-4a7b-abbb-7c5331eb28e6)
 
     
-![png](output_23_0.png)
-    
-
-
-
+# Comparision WHATIF
 ```python
-#Comparision WHATIF
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import train_test_split
-
 # Train Random Forest model
 rf_model = RandomForestClassifier(n_estimators=100, random_state=42)
 rf_model.fit(X_train, y_train)
@@ -1163,19 +1062,11 @@ plt.xlabel('Importance')
 plt.ylabel('Feature')
 plt.show()
 ```
-
+![output_24_0](https://github.com/user-attachments/assets/b2f08156-b998-4b41-8572-ba1a8d686c09)
 
     
-![png](output_24_0.png)
-    
-
-
-
-```python
-import pandas as pd
-import numpy as np
-
 # Predict churn probabilities
+```python
 y_prob = model.predict(X_test).flatten()  # Flatten if necessary
 
 # Define a threshold to classify churners vs non-churners
@@ -1203,6 +1094,8 @@ print(predicted_counts)
 ```
 
     [1m45/45[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m0s[0m 1ms/step 
+
+```    
     Count of actual churners vs non-churners:
     Actual
     0.0    1036
@@ -1214,23 +1107,26 @@ print(predicted_counts)
     0    1101
     1     308
     Name: count, dtype: int64
-    
+```
 
 
 ```python
 print(f"Length of y_test: {len(y_test)}")
 print(f"Length of y_pred: {len(y_pred)}")
-import matplotlib.pyplot as plt
+```
+```
+  Length of y_test: 1409
+  Length of y_pred: 1409
+```
 
-# Plot actual vs predicted counts
+# Plot actual vs predicted churners
+```python
 fig, ax = plt.subplots(1, 2, figsize=(12, 6))
-
 # Actual counts
 ax[0].bar(actual_counts.index.astype(str), actual_counts.values, color='blue')
 ax[0].set_title('Actual Churners vs Non-Churners')
 ax[0].set_xlabel('Churn')
 ax[0].set_ylabel('Count')
-
 # Predicted counts
 ax[1].bar(predicted_counts.index.astype(str), predicted_counts.values, color='red')
 ax[1].set_title('Predicted Churners vs Non-Churners')
@@ -1240,21 +1136,12 @@ ax[1].set_ylabel('Count')
 plt.tight_layout()
 plt.show()
 ```
-
-    Length of y_test: 1409
-    Length of y_pred: 1409
     
-
+![output_26_1](https://github.com/user-attachments/assets/9f575036-e0c6-4c9e-bfba-6cc81afc031d)
 
     
-![png](output_26_1.png)
-    
-
-
 
 ```python
-import matplotlib.pyplot as plt
-
 plt.hist(y_prob, bins=50, edgecolor='k')
 plt.title('Distribution of Churn Probabilities')
 plt.xlabel('Probability')
@@ -1262,20 +1149,16 @@ plt.ylabel('Frequency')
 plt.show()
 ```
 
+![output_27_0](https://github.com/user-attachments/assets/0aae3693-f627-430e-a3ce-031a339ee6ec)
 
     
-![png](output_27_0.png)
-    
 
 
-
+# Plot histograms for numerical feature distributions
 ```python
-import matplotlib.pyplot as plt
-
 # Assuming numerical_cols is a list of numerical column names
 numerical_features = numerical_cols
 
-# Plot histograms for numerical feature distributions
 n_features = len(numerical_features)
 fig, axs = plt.subplots(n_features, 1, figsize=(10, 5 * n_features), sharex=True)
 
@@ -1288,8 +1171,5 @@ for i, feature in enumerate(numerical_features):
 plt.tight_layout()
 plt.show()
 ```
+![output_28_0](https://github.com/user-attachments/assets/c461781f-b47f-4ef9-82c6-10ea5604ee57)
 
-
-    
-![png](output_28_0.png)
-    
