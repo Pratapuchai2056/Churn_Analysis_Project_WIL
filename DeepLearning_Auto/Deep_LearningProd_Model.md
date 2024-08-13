@@ -101,6 +101,5 @@ class recall	94.81%	37.82%
 
 # Deep Learning-Lift Chart
 
-```
+![Screenshot 2024-08-13 230058](https://github.com/user-attachments/assets/33fa87af-61cc-48fb-891f-c9e87f0371ba)
 
-```
